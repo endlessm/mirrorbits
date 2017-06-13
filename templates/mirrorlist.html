@@ -34,7 +34,7 @@
     <div id="left-col">
         <h3>Client</h3>
         <div>You are connecting with IP address <i>{{.IP}}</i>, which belongs to autonomous system <i>{{.ClientInfo.ASName}} (ASN{{.ClientInfo.ASNum}})</i>.<br />
-        {{if .ClientInfo.GeoIPRecord}}We believe you are {{if .ClientInfo.City}}near <i>{{.ClientInfo.City}}</i> in {{else}}somewhere in {{end}}<i>{{.ClientInfo.CountryName}}</i> and have selected mirrors based on this.{{else}}We were not able to use your IP to approximate your location, so have chosen the mirrors at random.{{end}}</div>
+        {{if .ClientInfo.IsValid}}We believe you are {{if .ClientInfo.City}}near <i>{{.ClientInfo.City}}</i> in {{else}}somewhere in {{end}}<i>{{.ClientInfo.Country}}</i> and have selected mirrors based on this.{{else}}We were not able to use your IP to approximate your location, so have chosen the mirrors at random.{{end}}</div>
     </div>
 
     <div id="right-col">
