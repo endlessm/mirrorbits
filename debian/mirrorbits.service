@@ -8,6 +8,7 @@ ExecStart=/usr/bin/mirrorbits -D -p /run/mirrorbits/mirrorbits.pid
 ExecReload=/bin/kill -HUP $MAINPID
 TimeoutStopSec=5
 KillMode=mixed
+KillSignal=QUIT
 RuntimeDirectory=mirrorbits
 PIDFile=/run/mirrorbits/mirrorbits.pid
 
