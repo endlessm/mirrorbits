@@ -1,4 +1,6 @@
-.PHONY: all vendor build dev clean release test installdirs install uninstall install-service uninstall-service service-systemd
+.PHONY: all vendor build dev clean release test installdirs install uninstall install-service uninstall-service service-systemd dist
+
+-include Makefile.inc
 
 VERSION := $(shell git describe --always --dirty --tags)
 SHA := $(shell git rev-parse --short HEAD)
@@ -12,6 +14,10 @@ ifneq (${DESTDIR}$(PREFIX),)
 TEMPLATES = ${DESTDIR}$(PREFIX)/share/mirrorbits
 endif
 PREFIX ?= /usr/local
+
+distdir ?= mirrorbits_$(VERSION)
+DIST_TARBALL := $(distdir).tar.gz
+
 PACKAGE = github.com/etix/mirrorbits
 
 LDFLAGS := -X $(PACKAGE)/core.VERSION=$(VERSION) -X $(PACKAGE)/core.BUILD=$(BUILD) -X $(PACKAGE)/config.TEMPLATES_PATH=${TEMPLATES}
@@ -25,16 +31,24 @@ SERVICEDIR_SYSTEMD ?= $(shell $(PKG_CONFIG) systemd --variable=systemdsystemunit
 
 all: build
 
+ifdef USE_TEMP_GOPATH
+WITH_TEMP_GOPATH = ./with-temp-gopath.sh ${PACKAGE}
+endif
+
 vendor:
-	go get github.com/kardianos/govendor
-	govendor sync ${PACKAGE}
+ifdef DISABLE_GOVENDOR
+	@echo Assuming vendored code is already present
+else
+	which govendor 2>/dev/null || go get github.com/kardianos/govendor
+	$(WITH_TEMP_GOPATH) govendor sync ${PACKAGE}
+endif
 
 protoc:
 	go get -u github.com/golang/protobuf/protoc-gen-go
 	protoc -I rpc rpc/rpc.proto --go_out=plugins=grpc:rpc
 
 build: vendor protoc
-	go build $(GOFLAGS) -o $(BINARY) .
+	$(WITH_TEMP_GOPATH) go build $(GOFLAGS) -o $(BINARY) .
 
 dev: vendor protoc
 	go build $(GOFLAGSDEV) -o $(BINARY) .
@@ -45,6 +59,7 @@ clean:
 	@rm -f contrib/init/systemd/mirrorbits.service
 	@rm -dRf dist
 	@rm -f rpc/*.pb.go
+	@rm -f $(DIST_TARBALL)
 
 release: $(TARBALL)
 
@@ -88,3 +103,9 @@ $(TARBALL): build
 	@tar -czf $@ -C tmp mirrorbits && echo release tarball has been created: $@
 	@rm -rf tmp
 
+$(DIST_TARBALL): vendor clean
+	mkdir -p dist
+	tar -czf dist/$@ --transform "s/^./$(distdir)/" --exclude-vcs --exclude dist .
+	mv dist/$@ $@
+
+dist: $(DIST_TARBALL)
