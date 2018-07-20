@@ -19,6 +19,7 @@ Built-Using: ${misc:Built-Using}
 Depends: ${misc:Depends},
          ${shlibs:Depends},
          geoip-database-contrib,
+Recommends: redis-server,
 Description: A geographical download redirector
  Mirrorbits is a geographical download redirector written in
  Go. It offers a simple and economic way to create a Content
