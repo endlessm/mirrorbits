@@ -1,10 +1,15 @@
-.PHONY: all build dev install clean release vendor
+.PHONY: all build dev install clean release vendor dist
+
+-include Makefile.inc
 
 VERSION := $(shell git describe --always --dirty --tags)
 SHA := $(shell git rev-parse --short HEAD)
 BRANCH := $(subst /,-,$(shell git rev-parse --abbrev-ref HEAD))
 BUILD := $(SHA)-$(BRANCH)
 TARBALL := dist/mirrorbits-$(VERSION).tar.gz
+
+distdir ?= mirrorbits_$(VERSION)
+DIST_TARBALL := $(distdir).tar.gz
 
 PACKAGE = github.com/etix/mirrorbits
 
@@ -15,12 +20,20 @@ export PATH := ${GOPATH}/bin:$(PATH)
 
 all: build
 
+ifdef USE_TEMP_GOPATH
+WITH_TEMP_GOPATH = ./with-temp-gopath.sh ${PACKAGE}
+endif
+
 vendor:
-	go get github.com/kardianos/govendor
-	govendor sync ${PACKAGE}
+ifdef DISABLE_GOVENDOR
+	@echo Assuming vendored code is already present
+else
+	which govendor 2>/dev/null || go get github.com/kardianos/govendor
+	$(WITH_TEMP_GOPATH) govendor sync ${PACKAGE}
+endif
 
 build: vendor
-	go build $(GOFLAGS) -o bin/mirrorbits .
+	$(WITH_TEMP_GOPATH) go build $(GOFLAGS) -o bin/mirrorbits .
 
 dev: vendor
 	go build $(GOFLAGSDEV) -o bin/mirrorbits .
@@ -30,8 +43,7 @@ install: vendor
 
 clean:
 	@echo Cleaning workspace...
-	@rm -f bin/mirrorbits
-	@rm -dRf dist
+	@rm -dRf bin dist $(DIST_TARBALL)
 
 release: $(TARBALL)
 
@@ -48,3 +60,9 @@ $(TARBALL): build
 	@tar -czf $@ -C tmp mirrorbits && echo release tarball has been created: $@
 	@rm -rf tmp
 
+$(DIST_TARBALL): vendor clean
+	mkdir -p dist
+	tar -czf dist/$@ --transform "s/^./$(distdir)/" --exclude-vcs --exclude dist .
+	mv dist/$@ $@
+
+dist: $(DIST_TARBALL)
