@@ -29,10 +29,10 @@ GOPATH=$(mktemp -d)
 export GOPATH
 
 GOPATH_SRCDIR="$GOPATH/src/$PACKAGE"
-SRCDIR=$(readlink -f $PWD)
-mkdir -p $(dirname "$GOPATH_SRCDIR")
+SRCDIR=$(readlink -f "$PWD")
+mkdir -p "$(dirname "$GOPATH_SRCDIR")"
 ln -s "$SRCDIR" "$GOPATH_SRCDIR"
 
 cd "$GOPATH_SRCDIR"
-echo "Running '$@' in $GOPATH_SRCDIR" >&2
+echo "Running '$*' in $GOPATH_SRCDIR" >&2
 "$@"
