@@ -62,7 +62,7 @@ $(TARBALL): build
 
 $(DIST_TARBALL): vendor clean
 	mkdir -p dist
-	tar -czf dist/$@ --transform "s/^./$(distdir)/" --exclude-vcs --exclude dist .
+	tar -czf dist/$@ --transform "s,^\\./,$(distdir)/," --exclude-vcs --exclude dist .
 	mv dist/$@ $@
 
 dist: $(DIST_TARBALL)
