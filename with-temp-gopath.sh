@@ -19,13 +19,10 @@ if [[ $# -eq 0 ]]; then
 fi
 
 cleanup() {
-  if [[ -n "$GOPATH" && -d "$GOPATH" ]]; then
-    rm -rf "$GOPATH"
-  fi
+  rm -rf "$GOPATH"
 }
-trap cleanup EXIT
-
 GOPATH=$(mktemp -d)
+trap cleanup EXIT
 export GOPATH
 
 GOPATH_SRCDIR="$GOPATH/src/$PACKAGE"
