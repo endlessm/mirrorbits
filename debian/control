@@ -1,0 +1,27 @@
+Source: mirrorbits
+Section: devel
+Priority: optional
+Maintainer: Will Thompson <wjt@endlessm.com>
+Build-Depends: debhelper (>= 10),
+               git,
+               golang-any,
+               govendor,
+               libgeoip-dev,
+               pkg-config,
+               rsync,
+               zlib1g-dev,
+Standards-Version: 4.1.4
+Homepage: https://github.com/etix/mirrorbits
+
+Package: mirrorbits
+Architecture: any
+Built-Using: ${misc:Built-Using}
+Depends: ${misc:Depends},
+         ${shlibs:Depends},
+         geoip-database-contrib,
+Description: A geographical download redirector
+ Mirrorbits is a geographical download redirector written in
+ Go. It offers a simple and economic way to create a Content
+ Delivery Network layer using a pure software stack. It is primarily
+ designed for the distribution of large-scale Open-Source projects with
+ a lot of traffic.

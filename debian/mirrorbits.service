@@ -1,0 +1,14 @@
+[Unit]
+Description=Mirrorbits redirector
+After=network.target
+ConditionPathExists=/etc/mirrorbits.conf
+
+[Service]
+PIDFile=/run/mirrorbits.pid
+ExecStart=/usr/bin/mirrorbits -D
+ExecReload=/bin/kill -HUP $MAINPID
+TimeoutStopSec=5
+KillMode=mixed
+
+[Install]
+WantedBy=multi-user.target

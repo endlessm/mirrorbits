@@ -1,0 +1,18 @@
+#!/usr/bin/make -f
+
+# mirrorbits' Makefile determines VERSION and some other things by running git,
+# but this is an unpacked source tarball, not a checkout.
+deb_version		:= $(shell dpkg-parsechangelog | sed -ne "s/^Version: \(.*\)/\1/p")
+upstream_version	:= $(shell echo $(deb_version) | sed -e "s/-[^-]*$$//")
+
+override_dh_auto_build:
+	make DISABLE_GOVENDOR=1 VERSION=$(upstream_version) BUILD=$(deb_version)
+
+# No tests please
+override_dh_auto_test:
+
+# We'll pluck the files into the right places by hand
+override_dh_auto_install:
+
+%:
+	dh $@

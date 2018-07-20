@@ -1,0 +1,8 @@
+CHANGELOG.md /usr/share/doc/mirrorbits
+LICENSE.txt /usr/share/doc/mirrorbits
+README.md /usr/share/doc/mirrorbits
+# TODO: upstream our changes, they should be uncontroversial
+# contrib/init/systemd/mirrorbits.service /lib/systemd/system
+bin/mirrorbits /usr/bin
+mirrorbits.conf /usr/share/doc/mirrorbits/examples
+templates/* /usr/share/mirrorbits/templates
