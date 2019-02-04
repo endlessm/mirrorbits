@@ -6,6 +6,8 @@ mirrorbits (0.5.1-1) UNRELEASED; urgency=medium
       module is used for reading the databases.
     - Switch from geoip-update-contrib to the geoipupdate package since the
       latter fetches the GeoLite2 databses for use with GeoIP2.
+    - Run geoipupdate in the postinst if the GeoLite2 city database doesn't
+      exist since mirrorbits requires it.
 
  -- Dan Nicholson <nicholson@endlessm.com>  Mon, 04 Feb 2019 11:40:28 -0600
 

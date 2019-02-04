@@ -1,0 +1,12 @@
+#!/bin/sh
+set -e
+
+# The geoipupdate package does not immediately fetch the databases, so
+# download them now if the GeoLite2 city database doesn't exist.
+GEOUPDATE=/usr/bin/geoipupdate
+GEODB=/var/lib/GeoIP/GeoLite2-City.mmdb
+if [ "$1" = "configure" ] && [ -x "$GEOUPDATE" ] && [ ! -f "$GEODB" ]; then
+    "$GEOUPDATE"
+fi
+
+#DEBHELPER#
