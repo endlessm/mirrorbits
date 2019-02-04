@@ -6,7 +6,6 @@ Build-Depends: debhelper (>= 10),
                git,
                golang-any,
                govendor,
-               libgeoip-dev,
                pkg-config,
                rsync,
                zlib1g-dev,
@@ -18,7 +17,7 @@ Architecture: any
 Built-Using: ${misc:Built-Using}
 Depends: ${misc:Depends},
          ${shlibs:Depends},
-         geoip-database-contrib,
+         geoipupdate,
 Recommends: redis-server,
 Description: A geographical download redirector
  Mirrorbits is a geographical download redirector written in

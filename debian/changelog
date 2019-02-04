@@ -1,4 +1,15 @@
-mirrorbits (0.4-1) UNRELEASED; urgency=medium
+mirrorbits (0.5.1-1) UNRELEASED; urgency=medium
+
+  * New upstream release
+  * Adjust dependencies for use with GeoIP2
+    - Drop libgeoip-dev build dependency since the vendored maxminddb-golang
+      module is used for reading the databases.
+    - Switch from geoip-update-contrib to the geoipupdate package since the
+      latter fetches the GeoLite2 databses for use with GeoIP2.
+
+ -- Dan Nicholson <nicholson@endlessm.com>  Mon, 04 Feb 2019 11:40:28 -0600
+
+mirrorbits (0.4-1) stretch; urgency=medium
 
   * Initial release
 
