@@ -26,7 +26,7 @@ cleanup() {
 }
 trap cleanup EXIT
 TEMP_GOPATH=$(mktemp -d)
-GOPATH="$TEMP_GOPATH"
+GOPATH="${TEMP_GOPATH}${GOPATH:+:$GOPATH}"
 export GOPATH
 
 GOPATH_SRCDIR="$TEMP_GOPATH/src/$PACKAGE"
