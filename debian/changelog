@@ -8,6 +8,7 @@ mirrorbits (0.5.1-1) UNRELEASED; urgency=medium
       latter fetches the GeoLite2 databses for use with GeoIP2.
     - Run geoipupdate in the postinst if the GeoLite2 city database doesn't
       exist since mirrorbits requires it.
+  * Add build dependencies for generating the new gRPC protobufs.
 
  -- Dan Nicholson <nicholson@endlessm.com>  Mon, 04 Feb 2019 11:40:28 -0600
 

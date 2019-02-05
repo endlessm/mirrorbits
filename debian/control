@@ -5,8 +5,11 @@ Maintainer: Will Thompson <wjt@endlessm.com>
 Build-Depends: debhelper (>= 10),
                git,
                golang-any,
+               golang-goprotobuf-dev,
                govendor,
+               libprotobuf-dev,
                pkg-config,
+               protobuf-compiler,
                rsync,
                zlib1g-dev,
 Standards-Version: 4.1.4
