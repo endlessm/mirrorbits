@@ -7,6 +7,7 @@ upstream_version	:= $(shell echo $(deb_version) | sed -e "s/-[^-]*$$//")
 
 override_dh_auto_build:
 	make DISABLE_GOVENDOR=1 VERSION=$(upstream_version) BUILD=$(deb_version)
+	make service-systemd PREFIX=/usr
 
 # No tests please
 override_dh_auto_test:

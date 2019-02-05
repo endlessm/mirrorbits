@@ -11,6 +11,7 @@ Build-Depends: debhelper (>= 10),
                pkg-config,
                protobuf-compiler,
                rsync,
+               systemd,
                zlib1g-dev,
 Standards-Version: 4.1.4
 Homepage: https://github.com/etix/mirrorbits

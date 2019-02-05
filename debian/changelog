@@ -9,6 +9,8 @@ mirrorbits (0.5.1-1) UNRELEASED; urgency=medium
     - Run geoipupdate in the postinst if the GeoLite2 city database doesn't
       exist since mirrorbits requires it.
   * Add build dependencies for generating the new gRPC protobufs.
+  * Use upstream's mirrorbits.service systemd unit. This requires systemd.pc
+    to enable the service-systemd Makefile target.
 
  -- Dan Nicholson <nicholson@endlessm.com>  Mon, 04 Feb 2019 11:40:28 -0600
 
