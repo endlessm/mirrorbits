@@ -18,14 +18,18 @@ if [[ $# -eq 0 ]]; then
   exit 64  # EX_USAGE from sysexits.h
 fi
 
+TEMP_GOPATH=
 cleanup() {
-  rm -rf "$GOPATH"
+  if [[ -n "$TEMP_GOPATH" && -d "$TEMP_GOPATH" ]]; then
+    rm -rf "$GOPATH"
+  fi
 }
-GOPATH=$(mktemp -d)
 trap cleanup EXIT
+TEMP_GOPATH=$(mktemp -d)
+GOPATH="$TEMP_GOPATH"
 export GOPATH
 
-GOPATH_SRCDIR="$GOPATH/src/$PACKAGE"
+GOPATH_SRCDIR="$TEMP_GOPATH/src/$PACKAGE"
 SRCDIR=$(readlink -f "$PWD")
 mkdir -p "$(dirname "$GOPATH_SRCDIR")"
 ln -s "$SRCDIR" "$GOPATH_SRCDIR"
