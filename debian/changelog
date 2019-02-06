@@ -1,4 +1,4 @@
-mirrorbits (0.5.1-1) UNRELEASED; urgency=medium
+mirrorbits (0.5.1-1) bionic; urgency=medium
 
   * New upstream release
   * Adjust dependencies for use with GeoIP2
@@ -13,7 +13,7 @@ mirrorbits (0.5.1-1) UNRELEASED; urgency=medium
     to enable the service-systemd Makefile target.
   * Require golang-any 1.9 for alias support.
 
- -- Dan Nicholson <nicholson@endlessm.com>  Mon, 04 Feb 2019 11:40:28 -0600
+ -- Dan Nicholson <nicholson@endlessm.com>  Wed, 06 Feb 2019 11:14:22 -0600
 
 mirrorbits (0.4-1) stretch; urgency=medium
 
