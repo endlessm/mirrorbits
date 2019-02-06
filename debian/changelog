@@ -11,6 +11,7 @@ mirrorbits (0.5.1-1) UNRELEASED; urgency=medium
   * Add build dependencies for generating the new gRPC protobufs.
   * Use upstream's mirrorbits.service systemd unit. This requires systemd.pc
     to enable the service-systemd Makefile target.
+  * Require golang-any 1.9 for alias support.
 
  -- Dan Nicholson <nicholson@endlessm.com>  Mon, 04 Feb 2019 11:40:28 -0600
 

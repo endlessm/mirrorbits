@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: Will Thompson <wjt@endlessm.com>
 Build-Depends: debhelper (>= 10),
                git,
-               golang-any,
+               golang-any (>= 1.9),
                golang-goprotobuf-dev,
                govendor,
                libprotobuf-dev,
